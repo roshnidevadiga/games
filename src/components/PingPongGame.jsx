@@ -21,10 +21,13 @@ const PingPongGame = () => {
   });
 
   // Speed control state
-  const [speedMultiplier, setSpeedMultiplier] = useState(1); // 0.5x to 3x speed
+  const [speedMultiplier, setSpeedMultiplier] = useState(1); // 1x to 3x speed
 
   // Head tracking state
   const [headPosition, setHeadPosition] = useState(0); // -1 to 1, where 0 is center
+
+  // Countdown state
+  const [countdown, setCountdown] = useState(0); // 0 = no countdown, 3, 2, 1 = countdown numbers
 
   // Use refs to maintain state across re-mounts
   const gameStateRef = useRef(gameState);
@@ -273,19 +276,35 @@ const PingPongGame = () => {
 
   const startGame = () => {
     console.log("Starting game...");
-    setGameState((prev) => ({
-      ...prev,
-      ball: {
-        x: 300,
-        y: 225,
-        dx: BASE_BALL_SPEED.dx,
-        dy: BASE_BALL_SPEED.dy,
-        radius: 10,
-      },
-      score: 0,
-      isPlaying: true,
-      isPaused: false,
-    }));
+
+    // Start countdown
+    setCountdown(3);
+
+    // Countdown sequence
+    const countdownInterval = setInterval(() => {
+      setCountdown((prev) => {
+        if (prev > 1) {
+          return prev - 1;
+        } else {
+          // Countdown finished, start the game
+          clearInterval(countdownInterval);
+          setGameState((prevState) => ({
+            ...prevState,
+            ball: {
+              x: 300,
+              y: 225,
+              dx: BASE_BALL_SPEED.dx,
+              dy: BASE_BALL_SPEED.dy,
+              radius: 10,
+            },
+            score: 0,
+            isPlaying: true,
+            isPaused: false,
+          }));
+          return 0;
+        }
+      });
+    }, 1000);
   };
 
   const pauseGame = () => {
@@ -344,11 +363,18 @@ const PingPongGame = () => {
         <div className="game-section">
           <div className="game-canvas-container">
             <h2>Game</h2>
-            <canvas
-              ref={canvasRef}
-              className="game-canvas"
-              onMouseMove={handleMouseMove}
-            />
+            <div className="canvas-wrapper">
+              <canvas
+                ref={canvasRef}
+                className="game-canvas"
+                onMouseMove={handleMouseMove}
+              />
+              {countdown > 0 && (
+                <div className="countdown-overlay">
+                  <div className="countdown-number">{countdown}</div>
+                </div>
+              )}
+            </div>
           </div>
 
           <div className="game-controls">
