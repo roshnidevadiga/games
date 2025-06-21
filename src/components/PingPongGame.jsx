@@ -2,8 +2,8 @@ import { useLayoutEffect, useRef, useState } from "react";
 import HeadTracker from "./HeadTracker";
 import "./PingPongGame.css";
 
-const CANVAS_WIDTH = 800;
-const CANVAS_HEIGHT = 600;
+const CANVAS_WIDTH = 600;
+const CANVAS_HEIGHT = 450;
 const WALL_HEIGHT = 20;
 const BASE_BALL_SPEED = { dx: 4, dy: 3 }; // Base speed values
 
@@ -13,8 +13,8 @@ const PingPongGame = () => {
 
   // Game state
   const [gameState, setGameState] = useState({
-    ball: { x: 400, y: 300, dx: 4, dy: 3, radius: 10 },
-    paddle: { x: 350, y: 550, width: 100, height: 10 },
+    ball: { x: 300, y: 225, dx: 4, dy: 3, radius: 10 },
+    paddle: { x: 250, y: 420, width: 100, height: 10 },
     score: 0,
     isPlaying: false,
     isPaused: false,
@@ -224,8 +224,8 @@ const PingPongGame = () => {
         setGameState((prev) => ({
           ...prev,
           ball: {
-            x: 400,
-            y: 300,
+            x: 300,
+            y: 225,
             dx: BASE_BALL_SPEED.dx,
             dy: BASE_BALL_SPEED.dy,
             radius: 10,
@@ -276,8 +276,8 @@ const PingPongGame = () => {
     setGameState((prev) => ({
       ...prev,
       ball: {
-        x: 400,
-        y: 300,
+        x: 300,
+        y: 225,
         dx: BASE_BALL_SPEED.dx,
         dy: BASE_BALL_SPEED.dy,
         radius: 10,
@@ -306,13 +306,13 @@ const PingPongGame = () => {
   const resetGame = () => {
     setGameState({
       ball: {
-        x: 400,
-        y: 300,
+        x: 300,
+        y: 225,
         dx: BASE_BALL_SPEED.dx,
         dy: BASE_BALL_SPEED.dy,
         radius: 10,
       },
-      paddle: { x: 350, y: 550, width: 100, height: 10 },
+      paddle: { x: 250, y: 420, width: 100, height: 10 },
       score: 0,
       isPlaying: false,
       isPaused: false,
@@ -342,12 +342,14 @@ const PingPongGame = () => {
 
         {/* Game Section */}
         <div className="game-section">
-          <h2>Game</h2>
-          <canvas
-            ref={canvasRef}
-            className="game-canvas"
-            onMouseMove={handleMouseMove}
-          />
+          <div className="game-canvas-container">
+            <h2>Game</h2>
+            <canvas
+              ref={canvasRef}
+              className="game-canvas"
+              onMouseMove={handleMouseMove}
+            />
+          </div>
 
           <div className="game-controls">
             <div className="control-buttons">
