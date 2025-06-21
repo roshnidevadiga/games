@@ -167,13 +167,51 @@ const PingPongGame = () => {
         newBall.x >= currentState.paddle.x &&
         newBall.x <= currentState.paddle.x + currentState.paddle.width
       ) {
-        newBall.dy = -Math.abs(newBall.dy); // Make sure it bounces up
+        // Position ball just above paddle to prevent sticking
         newBall.y = currentState.paddle.y - newBall.radius;
 
-        // Add some angle based on where it hit the paddle
-        const hitPos =
-          (newBall.x - currentState.paddle.x) / currentState.paddle.width - 0.5;
-        newBall.dx += hitPos * 2;
+        // Calculate where on the paddle the ball hit (0 = left edge, 1 = right edge)
+        const hitPosition =
+          (newBall.x - currentState.paddle.x) / currentState.paddle.width;
+
+        // Calculate the current ball speed magnitude to maintain energy
+        const currentSpeed = Math.sqrt(
+          newBall.dx * newBall.dx + newBall.dy * newBall.dy
+        );
+
+        // Determine new trajectory based on hit position
+        let newAngle;
+
+        if (hitPosition < 0.2) {
+          // Hit on far left - sharp angle left (120-150 degrees)
+          newAngle = (Math.PI * (120 + Math.random() * 30)) / 180;
+        } else if (hitPosition < 0.4) {
+          // Hit on left side - moderate angle left (90-120 degrees)
+          newAngle = (Math.PI * (90 + Math.random() * 30)) / 180;
+        } else if (hitPosition < 0.6) {
+          // Hit in center - mostly straight up with slight variation (60-120 degrees)
+          newAngle = (Math.PI * (60 + Math.random() * 60)) / 180;
+        } else if (hitPosition < 0.8) {
+          // Hit on right side - moderate angle right (60-90 degrees)
+          newAngle = (Math.PI * (60 + Math.random() * 30)) / 180;
+        } else {
+          // Hit on far right - sharp angle right (30-60 degrees)
+          newAngle = (Math.PI * (30 + Math.random() * 30)) / 180;
+        }
+
+        // Apply the new trajectory while maintaining ball speed
+        newBall.dx = Math.cos(newAngle) * currentSpeed;
+        newBall.dy = -Math.abs(Math.sin(newAngle) * currentSpeed); // Ensure upward movement
+
+        // Add some randomness for more dynamic gameplay (±10% speed variation)
+        const speedVariation = 0.9 + Math.random() * 0.2;
+        newBall.dx *= speedVariation;
+        newBall.dy *= speedVariation;
+
+        // Ensure minimum upward velocity to prevent horizontal shots
+        if (Math.abs(newBall.dy) < 2) {
+          newBall.dy = newBall.dy < 0 ? -2 : 2;
+        }
 
         // Update state with new ball and score
         setGameState((prev) => ({
