@@ -1,6 +1,6 @@
 import { useLayoutEffect, useRef, useState } from "react";
 
-const HeadTracker = ({ onHeadMove }) => {
+const HeadTracker = ({ onHeadMove, onCameraStatusChange }) => {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
   const [isTracking, setIsTracking] = useState(false);
@@ -58,6 +58,11 @@ const HeadTracker = ({ onHeadMove }) => {
           // Start tracking
           setIsTracking(true);
 
+          // Notify parent that camera is ready
+          if (onCameraStatusChange) {
+            onCameraStatusChange(true);
+          }
+
           // Start the detection loop after a short delay
           setTimeout(() => {
             startDetection();
@@ -110,6 +115,11 @@ const HeadTracker = ({ onHeadMove }) => {
     frameCountRef.current = 0;
     setDebugInfo({ frame: 0 });
     previousFrameRef.current = null;
+
+    // Notify parent that camera is stopped
+    if (onCameraStatusChange) {
+      onCameraStatusChange(false);
+    }
   };
 
   const startDetection = () => {

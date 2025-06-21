@@ -338,9 +338,17 @@ const PingPongGame = () => {
     });
   };
 
+  // Camera status state
+  const [isCameraReady, setIsCameraReady] = useState(false);
+
   // Function to handle head movement from HeadTracker component
   const handleHeadMove = (movement) => {
     setHeadPosition(movement);
+  };
+
+  // Function to handle camera status from HeadTracker component
+  const handleCameraStatus = (isReady) => {
+    setIsCameraReady(isReady);
   };
 
   // Function to handle speed change
@@ -356,7 +364,10 @@ const PingPongGame = () => {
       <div className="main-container">
         {/* Head Tracker Section */}
         <div className="head-tracker-section">
-          <HeadTracker onHeadMove={handleHeadMove} />
+          <HeadTracker
+            onHeadMove={handleHeadMove}
+            onCameraStatusChange={handleCameraStatus}
+          />
         </div>
 
         {/* Game Section */}
@@ -382,9 +393,13 @@ const PingPongGame = () => {
               <button
                 onClick={startGame}
                 className="start-btn"
-                disabled={gameState.isPlaying && !gameState.isPaused}
+                disabled={
+                  !isCameraReady || (gameState.isPlaying && !gameState.isPaused)
+                }
               >
-                {gameState.isPlaying
+                {!isCameraReady
+                  ? "Camera Required"
+                  : gameState.isPlaying
                   ? gameState.isPaused
                     ? "Resume"
                     : "Playing..."
@@ -400,12 +415,16 @@ const PingPongGame = () => {
               <button
                 onClick={stopGame}
                 className="stop-btn"
-                disabled={!gameState.isPlaying}
+                disabled={!isCameraReady || !gameState.isPlaying}
               >
                 🛑 Stop
               </button>
 
-              <button onClick={resetGame} className="reset-btn">
+              <button
+                onClick={resetGame}
+                className="reset-btn"
+                disabled={!isCameraReady}
+              >
                 🔄 Reset
               </button>
             </div>
@@ -438,8 +457,10 @@ const PingPongGame = () => {
                 {gameState.isPlaying
                   ? gameState.isPaused
                     ? "Game Paused"
-                    : "Playing - Use head tracking or mouse!"
-                  : "Click Start Game to begin"}
+                    : "Playing - Move your head to control the paddle!"
+                  : isCameraReady
+                  ? "Click Start Game to begin"
+                  : "Start camera first to enable game controls"}
               </p>
             </div>
           </div>
