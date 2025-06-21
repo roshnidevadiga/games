@@ -1,4 +1,4 @@
-# 🏓 Motion Ping Pong
+# 🏓 Motion Ping Pong Game
 
 A fun and interactive ping pong game controlled by head movements using your webcam! Built with React and modern web technologies.
 
