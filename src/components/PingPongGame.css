@@ -104,6 +104,7 @@
   background: rgba(255, 255, 255, 0.05);
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.1);
+  min-height: 450px;
 }
 
 .control-buttons {
@@ -193,6 +194,7 @@
   backdrop-filter: blur(5px);
   border: 1px solid rgba(255, 255, 255, 0.2);
   width: 100%;
+  min-height: 70px;
 }
 
 .speed-control label {
@@ -211,6 +213,7 @@
   cursor: pointer;
   -webkit-appearance: none;
   appearance: none;
+  margin: 0 10px;
 }
 
 .speed-slider::-webkit-slider-thumb {
@@ -240,15 +243,42 @@
   box-shadow: 0 2px 6px rgba(0,0,0,0.3);
   border: 2px solid #45b7d1;
   transition: all 0.3s ease;
+  -moz-appearance: none;
+}
+
+.speed-slider::-moz-range-track {
+  height: 6px;
+  border-radius: 3px;
+  background: linear-gradient(to right, #ff6b6b, #4ecdc4, #45b7d1);
+  border: none;
 }
 
 .speed-labels {
   display: flex;
   justify-content: space-between;
-  width: 180px;
+  width: 200px;
   font-size: 12px;
   color: #ccc;
   margin-top: 5px;
+  position: relative;
+  padding: 0 10px;
+  box-sizing: border-box;
+}
+
+.speed-labels span:nth-child(1) { /* 1x */
+  position: absolute;
+  left: 0%;
+}
+
+.speed-labels span:nth-child(2) { /* 2x */
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.speed-labels span:nth-child(3) { /* 3x */
+  position: absolute;
+  right: 0%;
 }
 
 .speed-labels span {

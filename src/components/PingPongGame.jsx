@@ -392,7 +392,7 @@ const PingPongGame = () => {
               <input
                 id="speed-slider"
                 type="range"
-                min="0.5"
+                min="1"
                 max="3"
                 step="0.1"
                 value={speedMultiplier}
@@ -400,7 +400,6 @@ const PingPongGame = () => {
                 className="speed-slider"
               />
               <div className="speed-labels">
-                <span>0.5x</span>
                 <span>1x</span>
                 <span>2x</span>
                 <span>3x</span>
