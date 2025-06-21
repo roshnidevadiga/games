@@ -4,12 +4,17 @@
   align-items: center;
   justify-content: flex-start;
   padding: 10px 20px 20px 20px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.05) 0%, transparent 50%),
+    linear-gradient(135deg, #0f0f23 0%, #1a1a2e 25%, #16213e 50%, #0f3460 75%, #1e3c72 100%);
   min-height: 100vh;
   color: white;
   width: 100%;
   box-sizing: border-box;
   overflow-x: hidden;
+  position: relative;
 }
 
 .ping-pong-app h1 {
@@ -41,14 +46,16 @@
 
 .head-tracker-section {
   flex: 0 0 350px;
-  background: rgba(0, 0, 0, 0.3);
-  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
   padding: 15px;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(20px);
   position: relative;
   z-index: 1;
   min-height: 500px;
   box-sizing: border-box;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 .game-section {
@@ -56,16 +63,18 @@
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  background: rgba(0, 0, 0, 0.3);
-  border-radius: 15px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
   padding: 20px;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(20px);
   position: relative;
   z-index: 1;
   box-sizing: border-box;
   gap: 20px;
   min-width: 0;
   min-height: 500px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 .game-canvas-container {
@@ -145,10 +154,12 @@
   gap: 15px;
   align-items: center;
   padding: 20px;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
   min-height: 450px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
 .control-buttons {
@@ -233,12 +244,13 @@
   align-items: center;
   gap: 8px;
   padding: 12px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
-  backdrop-filter: blur(5px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
   width: 100%;
   min-height: 70px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
 
 .speed-control label {
