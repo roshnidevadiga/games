@@ -6,17 +6,23 @@
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   min-height: 100vh;
   color: white;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .ping-pong-app h1 {
   margin-bottom: 10px;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  text-align: center;
 }
 
 .ping-pong-app > p {
   margin-bottom: 20px;
   font-size: 18px;
   text-align: center;
+  max-width: 100%;
+  word-wrap: break-word;
+  padding: 0 10px;
 }
 
 .main-container {
@@ -25,6 +31,8 @@
   align-items: flex-start;
   max-width: 1400px;
   width: 100%;
+  justify-content: center;
+  overflow: visible;
 }
 
 .head-tracker-section {
@@ -33,6 +41,10 @@
   border-radius: 15px;
   padding: 20px;
   backdrop-filter: blur(10px);
+  position: relative;
+  z-index: 1;
+  min-height: 500px;
+  box-sizing: border-box;
 }
 
 .game-section {
@@ -44,6 +56,10 @@
   border-radius: 15px;
   padding: 20px;
   backdrop-filter: blur(10px);
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 .game-section h2 {
@@ -58,6 +74,8 @@
   margin-bottom: 20px;
   max-width: 100%;
   height: auto;
+  display: block;
+  box-sizing: border-box;
 }
 
 .game-controls {
@@ -240,21 +258,44 @@
   .main-container {
     flex-direction: column;
     align-items: center;
+    gap: 30px;
+    max-width: 100%;
   }
   
   .head-tracker-section {
     flex: none;
     width: 100%;
     max-width: 600px;
+    min-height: auto;
   }
   
   .game-section {
     width: 100%;
     max-width: 900px;
+    min-width: auto;
+  }
+  
+  .ping-pong-app > p {
+    font-size: 16px;
+    padding: 0 20px;
   }
 }
 
 @media (max-width: 768px) {
+  .ping-pong-app {
+    padding: 15px;
+  }
+  
+  .ping-pong-app h1 {
+    font-size: 24px;
+  }
+  
+  .ping-pong-app > p {
+    font-size: 14px;
+    padding: 0 15px;
+    line-height: 1.4;
+  }
+  
   .control-buttons {
     flex-direction: column;
     width: 100%;
@@ -264,17 +305,44 @@
     width: 100%;
     max-width: 200px;
   }
+  
+  .main-container {
+    gap: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ping-pong-app {
+    padding: 10px;
+  }
+  
+  .ping-pong-app h1 {
+    font-size: 20px;
+  }
+  
+  .ping-pong-app > p {
+    font-size: 13px;
+    padding: 0 10px;
+  }
 }
 
 /* Head Tracker Styles */
 .head-tracker {
-  background: #2a2a2a;
-  border-radius: 15px;
-  padding: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-  border: 2px solid #333;
-  max-width: 400px;
+  background: transparent;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+  border: none;
+  max-width: 100%;
   width: 100%;
+  height: 100%;
+}
+
+.head-tracker h2 {
+  margin: 0 0 20px 0;
+  text-align: center;
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
 }
 
 .tracker-container {
@@ -282,6 +350,8 @@
   flex-direction: column;
   align-items: center;
   gap: 15px;
+  padding: 0;
+  margin: 0;
 }
 
 .tracker-canvas {
@@ -347,6 +417,8 @@
 .head-tracker.error {
   text-align: center;
   color: #ff6b6b;
+  background: transparent;
+  padding: 20px;
 }
 
 .head-tracker.error h3 {
